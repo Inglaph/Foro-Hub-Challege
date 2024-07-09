@@ -1,8 +1,6 @@
 package com.forohub.api.controller;
 
-import com.forohub.api.topico.DatosRegistroTopico;
-import com.forohub.api.topico.Topico;
-import com.forohub.api.topico.TopicoRepository;
+import com.forohub.api.topico.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
