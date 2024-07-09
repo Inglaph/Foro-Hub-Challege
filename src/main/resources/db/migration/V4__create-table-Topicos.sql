@@ -1,7 +1,7 @@
 CREATE TABLE topicos(
 
     id serial PRIMARY KEY,
-    titulo VARCHAR(255) NOT NULL,
+    titulo VARCHAR(255) NOT NULL UNIQUE,
     mensaje VARCHAR(1000) NOT NULL,
     fecha_creacion TIMESTAMP NOT NULL,
     estado BOOLEAN NOT NULL,

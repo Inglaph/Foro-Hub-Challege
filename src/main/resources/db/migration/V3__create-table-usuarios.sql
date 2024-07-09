@@ -3,7 +3,7 @@ CREATE TABLE usuarios(
 
     id serial PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     id_perfil INT NOT NULL,
 
