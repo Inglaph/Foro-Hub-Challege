@@ -47,5 +47,13 @@ public class TopicoController {
         });
     }
 
+    // Metodo para actualizar un topico
+    @PutMapping
+    @Transactional
+    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
+        Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
+        topico.actualizarDatos(datosActualizarTopico);
+    }
+
 }
 

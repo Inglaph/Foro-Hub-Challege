@@ -40,5 +40,18 @@ public class Topico {
     }
 
 
-
+    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+        if (datosActualizarTopico.titulo() != null) {
+            this.titulo = datosActualizarTopico.titulo();
+        }
+        if (datosActualizarTopico.mensaje() != null) {
+            this.mensaje = datosActualizarTopico.mensaje();
+        }
+        if (datosActualizarTopico.idUsuario() != null) {
+            this.idUsuario = Integer.parseInt(datosActualizarTopico.idUsuario());
+        }
+        if (datosActualizarTopico.idCurso() != null) {
+            this.idCurso = Integer.parseInt(datosActualizarTopico.idCurso());
+        }
+    }
 }
