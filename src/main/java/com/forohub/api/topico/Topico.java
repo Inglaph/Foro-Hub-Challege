@@ -21,18 +21,20 @@ public class Topico {
     private String titulo;
     private String mensaje;
     private LocalDate fechaCreacion;
-    private boolean status;
-    private String idUsuario;
-    private String Curso;
+    private boolean estado;
+    private Integer idUsuario;
+    private Integer idCurso;
 
 
 
     public Topico(DatosRegistroTopico datosRegistroTopico) {
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
-        this.idUsuario = datosRegistroTopico.idUsuario();
-        this.Curso = datosRegistroTopico.idCurso();
+
+        this.idUsuario = Integer.parseInt(datosRegistroTopico.idUsuario());
+        //
+        this.idCurso = Integer.parseInt(datosRegistroTopico.idCurso() );
         this.fechaCreacion = LocalDate.now();
-        this.status = true;
+        this.estado = true;
     }
 }
