@@ -1,11 +1,14 @@
 package com.forohub.api.topico;
 
+import com.forohub.api.curso.Curso;
+import com.forohub.api.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+
 
 @Table(name = "topicos")
 @Entity(name = "Topico")
@@ -25,16 +28,15 @@ public class Topico {
     private Integer idUsuario;
     private Integer idCurso;
 
-
-
     public Topico(DatosRegistroTopico datosRegistroTopico) {
         this.titulo = datosRegistroTopico.titulo();
         this.mensaje = datosRegistroTopico.mensaje();
 
         this.idUsuario = Integer.parseInt(datosRegistroTopico.idUsuario());
         //
-        this.idCurso = Integer.parseInt(datosRegistroTopico.idCurso() );
+        this.idCurso = Integer.parseInt(datosRegistroTopico.idCurso());
         this.fechaCreacion = LocalDate.now();
         this.estado = true;
     }
+
 }

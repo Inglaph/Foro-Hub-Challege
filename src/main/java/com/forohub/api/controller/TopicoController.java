@@ -4,9 +4,11 @@ import com.forohub.api.topico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -15,6 +17,9 @@ public class TopicoController {
 
     @Autowired
     private TopicoRepository topicoRepository;
+
+    @Autowired
+    private TopicoService topicoService;
 
     // Metodo para registrar un topico
     @PostMapping
@@ -26,8 +31,9 @@ public class TopicoController {
 
     // Metodo para listar todos los topicos
     @GetMapping
-    public List<Topico> listarTopicos() {
-        return topicoRepository.findAll();
+    public Page<DatosListadoTopico> listarTopicos(@PageableDefault(size = 10) Pageable paginacion) {
+        return topicoRepository.findAll(paginacion).map(DatosListadoTopico::new);
     }
+
 }
 
