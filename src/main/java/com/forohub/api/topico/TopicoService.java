@@ -16,13 +16,11 @@ public class TopicoService {
         this.topicoRepository = topicoRepository;
     }
 
-    public String getNombreCurso(Long idCurso) {
-        Curso curso = topicoRepository.findCursoById(idCurso);
-        return curso != null ? curso.getNombre() : "Curso no encontrado";
+    public String findCursoById(Long idCurso) {
+        return topicoRepository.findNombreCursoById(idCurso);
     }
 
-    public String getNombreUsuario(Long idUsuario) {
-        Usuario usuario = topicoRepository.findUsuarioById(idUsuario);
-        return usuario != null ? usuario.getNombre() : "Usuario no encontrado";
+    public String findUsuarioById(Long idUsuario) {
+        return topicoRepository.findNombreUsuarioById(idUsuario);
     }
 }

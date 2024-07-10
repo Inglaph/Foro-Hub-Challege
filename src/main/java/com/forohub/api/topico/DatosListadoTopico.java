@@ -6,19 +6,18 @@ public record DatosListadoTopico(
         String mensaje,
         String fechaCreacion,
         String estado,
-        String idUsuario,
-        String idCurso
+        String nombreUsuario,
+        String nombreCurso
 ) {
-
-    public DatosListadoTopico(Topico topico) {
+    public DatosListadoTopico(Topico topico, String nombreUsuario, String nombreCurso) {
         this(
                 topico.getId().toString(),
                 topico.getTitulo(),
                 topico.getMensaje(),
                 topico.getFechaCreacion().toString(),
                 topico.isEstado() ? "Activo" : "Inactivo",
-                topico.getIdUsuario().toString(),
-                topico.getIdCurso().toString()
+                nombreUsuario,
+                nombreCurso
         );
     }
 }

@@ -32,7 +32,19 @@ public class TopicoController {
     // Metodo para listar todos los topicos
     @GetMapping
     public Page<DatosListadoTopico> listarTopicos(@PageableDefault(size = 10) Pageable paginacion) {
-        return topicoRepository.findAll(paginacion).map(DatosListadoTopico::new);
+        return topicoRepository.findAll(paginacion).map(topico -> {
+            String nombreUsuario = topicoService.findUsuarioById(topico.getIdUsuario().longValue());
+            String nombreCurso = topicoService.findCursoById(topico.getIdCurso().longValue());
+            return new DatosListadoTopico(
+                    topico.getId().toString(),
+                    topico.getTitulo(),
+                    topico.getMensaje(),
+                    topico.getFechaCreacion().toString(),
+                    topico.isEstado() ? "Activo" : "Inactivo",
+                    nombreUsuario,
+                    nombreCurso
+            );
+        });
     }
 
 }

@@ -3,13 +3,15 @@ package com.forohub.api.topico;
 import com.forohub.api.curso.Curso;
 import com.forohub.api.usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 
 public interface TopicoRepository  extends JpaRepository<Topico, Long> {
 
-    // Metodo para retornar el nombre del curso de un topico por su id
-    public Curso findCursoById(Long idCurso);
+    @Query("SELECT c.nombre FROM Curso c WHERE c.id = :idCurso")
+    String findNombreCursoById(Long idCurso);
 
-    // Metodo para retornar el nombre del usuario de un topico por su id
-    public Usuario findUsuarioById(Long idUsuario);
+    @Query("SELECT u.nombre FROM Usuario u WHERE u.id = :idUsuario")
+    String findNombreUsuarioById(Long idUsuario);
+
 }
