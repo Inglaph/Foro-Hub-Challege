@@ -49,12 +49,17 @@ public class TopicoController {
 
     // Metodo para listar un topico por id
     @GetMapping("/{id}")
-    
+    public DatosListadoTopico listarTopicoPorId(@PathVariable Long id) {
+        Topico topico = topicoRepository.findById(id).orElseThrow();
+        String nombreUsuario = topicoService.findUsuarioById(topico.getIdUsuario().longValue());
+        String nombreCurso = topicoService.findCursoById(topico.getIdCurso().longValue());
+        return new DatosListadoTopico(topico, nombreUsuario, nombreCurso);
+    }
 
     // Metodo para actualizar un topico
     @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
+    public void actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosRegistroTopico datosActualizarTopico) {
         Topico topico = topicoRepository.getReferenceById(id);
         topico.actualizarDatos(datosActualizarTopico);
     }

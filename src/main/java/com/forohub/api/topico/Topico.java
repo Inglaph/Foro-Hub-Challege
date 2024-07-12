@@ -40,7 +40,7 @@ public class Topico {
     }
 
 
-    public void actualizarDatos(DatosActualizarTopico datosActualizarTopico) {
+    public void actualizarDatos(DatosRegistroTopico datosActualizarTopico) {
         if (datosActualizarTopico.titulo() != null) {
             this.titulo = datosActualizarTopico.titulo();
         }
