@@ -31,7 +31,7 @@ public class TopicoController {
 
     // Metodo para listar todos los topicos
     @GetMapping
-    public Page<DatosListadoTopico> listarTopicos(@PageableDefault(size = 10) Pageable paginacion) {
+    public Page<DatosListadoTopico> listarTopicos(@PageableDefault(size = 10, sort = "fechaCreacion") Pageable paginacion) {
         return topicoRepository.findAll(paginacion).map(topico -> {
             String nombreUsuario = topicoService.findUsuarioById(topico.getIdUsuario().longValue());
             String nombreCurso = topicoService.findCursoById(topico.getIdCurso().longValue());
@@ -47,11 +47,15 @@ public class TopicoController {
         });
     }
 
+    // Metodo para listar un topico por id
+    @GetMapping("/{id}")
+    
+
     // Metodo para actualizar un topico
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public void actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
-        Topico topico = topicoRepository.getReferenceById(datosActualizarTopico.id());
+    public void actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosActualizarTopico datosActualizarTopico) {
+        Topico topico = topicoRepository.getReferenceById(id);
         topico.actualizarDatos(datosActualizarTopico);
     }
 
