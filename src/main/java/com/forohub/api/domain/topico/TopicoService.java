@@ -1,7 +1,5 @@
-package com.forohub.api.topico;
+package com.forohub.api.domain.topico;
 
-import com.forohub.api.curso.Curso;
-import com.forohub.api.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

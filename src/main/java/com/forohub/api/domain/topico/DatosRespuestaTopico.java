@@ -1,4 +1,4 @@
-package com.forohub.api.topico;
+package com.forohub.api.domain.topico;
 
 public class DatosRespuestaTopico {
     private String id;

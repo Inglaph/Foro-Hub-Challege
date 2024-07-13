@@ -1,4 +1,5 @@
-package com.forohub.api.curso;
+package com.forohub.api.domain.usuario;
+
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,17 +7,19 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name = "cursos")
-@Entity(name = "Curso")
+@Table(name = "usuarios")
+@Entity(name = "Usuario")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Curso {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String categoria;
+    private String email;
+    private String password;
+    private Long idPerfil;
 }

@@ -1,4 +1,4 @@
-package com.forohub.api.topico;
+package com.forohub.api.domain.topico;
 
 public record DatosListadoTopico(
         String id,

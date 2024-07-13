@@ -1,7 +1,5 @@
-package com.forohub.api.topico;
+package com.forohub.api.domain.topico;
 
-import com.forohub.api.curso.Curso;
-import com.forohub.api.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

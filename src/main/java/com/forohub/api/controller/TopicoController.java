@@ -1,6 +1,6 @@
 package com.forohub.api.controller;
 
-import com.forohub.api.topico.*;
+import com.forohub.api.domain.topico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -65,13 +64,25 @@ public class TopicoController {
 
     // Metodo para listar un topico por id httpRequest 200 o 404
     @GetMapping("/{id}")
-    public ResponseEntity<DatosListadoTopico> listarTopicoPorId(@PathVariable Long id) {
-        DatosListadoTopico datosListadoTopico = topicoRepository.findById(id).map(topico -> {
+    public ResponseEntity<?> listarTopicoPorId(@PathVariable Long id) {
+        Optional<Topico> topicoOptional = topicoRepository.findById(id);
+        if (topicoOptional.isPresent()) {
+            Topico topico = topicoOptional.get();
             String nombreUsuario = topicoService.findUsuarioById(topico.getIdUsuario().longValue());
             String nombreCurso = topicoService.findCursoById(topico.getIdCurso().longValue());
-            return new DatosListadoTopico(topico, nombreUsuario, nombreCurso);
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Topico no encontrado con el id: " + id));
-        return ResponseEntity.ok(datosListadoTopico);
+            DatosListadoTopico datosListadoTopico = new DatosListadoTopico(
+                    topico.getId().toString(),
+                    topico.getTitulo(),
+                    topico.getMensaje(),
+                    topico.getFechaCreacion().toString(),
+                    topico.isEstado() ? "Activo" : "Inactivo",
+                    nombreUsuario,
+                    nombreCurso
+            );
+            return ResponseEntity.ok(datosListadoTopico);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Metodo para actualizar un topico
@@ -79,22 +90,23 @@ public class TopicoController {
     @Transactional
     public ResponseEntity<DatosRespuestaTopico> actualizarTopico(@PathVariable Long id, @RequestBody @Valid DatosRegistroTopico datosActualizarTopico) {
         Optional<Topico> topicoOptional = topicoRepository.findById(id);
-        topicoOptional.ifPresentOrElse(topico -> {
+        if (topicoOptional.isPresent()) {
+            Topico topico = topicoOptional.get();
             topico.actualizarDatos(datosActualizarTopico);
             topicoRepository.save(topico);
-        }, () -> {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro no encontrado");
-        });
-        // Se retorna el DTO DatosRespuestaTopico con los datos actualizados de la entidad Topico topicoOptional
-        return ResponseEntity.ok(new  DatosRespuestaTopico(
-            topicoOptional.get().getId().toString(),
-            topicoOptional.get().getTitulo(),
-            topicoOptional.get().getMensaje(),
-            topicoOptional.get().getFechaCreacion().toString(),
-            topicoOptional.get().isEstado() ? "Activo" : "Inactivo",
-            topicoService.findUsuarioById(topicoOptional.get().getIdUsuario().longValue()),
-            topicoService.findCursoById(topicoOptional.get().getIdCurso().longValue()
-        )));
+            DatosRespuestaTopico datosRespuestaTopico = new DatosRespuestaTopico(
+                    topico.getId().toString(),
+                    topico.getTitulo(),
+                    topico.getMensaje(),
+                    topico.getFechaCreacion().toString(),
+                    topico.isEstado() ? "Activo" : "Inactivo",
+                    topicoService.findUsuarioById(topico.getIdUsuario().longValue()),
+                    topicoService.findCursoById(topico.getIdCurso().longValue())
+            );
+            return ResponseEntity.ok(datosRespuestaTopico);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
@@ -108,6 +120,5 @@ public class TopicoController {
         });
         return ResponseEntity.ok().build();
     }
-
 }
 
