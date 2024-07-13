@@ -1,0 +1,1 @@
+ALTER TABLE usuarios ALTER COLUMN password TYPE VARCHAR(300);
